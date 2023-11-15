@@ -28,4 +28,4 @@ const Dashboard = ()=> {
         </div>
       );
 }
-export default authWrapper(D)
+export default authWrapper(Dashboard)

@@ -5,7 +5,7 @@ import Project from '../artifacts/contracts/Project.sol/Project.json'
 import { groupContributionByProject, groupContributors, projectDataFormatter, withdrawRequestDataFormatter} from "../helper/helper";
 
 
-const agriFundingContractAddress = ''
+const agriFundingContractAddress = '0xD1161F7b18560e23F314Ef3369Eb101f52fC8d75'
 
 //Load web3 
 export const loadWeb3 = async (dispatch) => {
