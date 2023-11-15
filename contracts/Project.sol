@@ -172,23 +172,36 @@ contract Project {
             _reciptent
         );
     }
+
     //@todo: request contributor to vote for withdraw requests
     //@todo: return null
 
     function voteWithdrawRequest(uint256 _requestId) public {
-        require(contributiors[msg.sender] > 0,'Only contributor can vote !');
+        require(contributiors[msg.sender] > 0, "Only contributor can vote !");
         WithdrawRequest storage requestDetails = withdrawRequests[_requestId];
-        require(requestDetails.voters[msg.sender] == false,'You already voted !');
+        require(
+            requestDetails.voters[msg.sender] == false,
+            "You already voted !"
+        );
         requestDetails.voters[msg.sender] = true;
         requestDetails.noOfVotes += 1;
-        emit WithdrawVote(msg.sender,requestDetails.noOfVotes);
+        emit WithdrawVote(msg.sender, requestDetails.noOfVotes);
     }
+
     //@todo: Owners can withdraw the amount that is rerquested
     //@todo: return null
-        function withdrawRequestedAmount(uint256 _requestId) isCreator() validateExpiry(State.Successful) public{
+    function withdrawRequestedAmount(
+        uint256 _requestId
+    ) public isCreator validateExpiry(State.Successful) {
         WithdrawRequest storage requestDetails = withdrawRequests[_requestId];
-        require(requestDetails.isCompleted == false,'Request already completed');
-        require(requestDetails.noOfVotes >= noOfContributers/2,'At least 50% contributor need to vote for this request');
+        require(
+            requestDetails.isCompleted == false,
+            "Request already completed"
+        );
+        require(
+            requestDetails.noOfVotes >= noOfContributers / 2,
+            "At least 50% contributor need to vote for this request"
+        );
         requestDetails.reciptent.transfer(requestDetails.amount);
         requestDetails.isCompleted = true;
 
@@ -200,8 +213,36 @@ contract Project {
             true,
             requestDetails.reciptent
         );
-
     }
-    //@todo: Get
-    //@todo: return null
+
+    //@todo: Get contract details
+    //@todo: return all the project details
+
+    function getProjectDetails()
+        public
+        view
+        returns (
+            address payable projectStarter,
+            uint256 minContribution,
+            uint256 projectDeadline,
+            uint256 goalAmount,
+            uint completedTime,
+            uint256 currentAmount,
+            string memory title,
+            string memory desc,
+            State currentState,
+            uint256 balance
+        )
+    {
+        projectStarter = creator;
+        minContribution = minimumContribution;
+        projectDeadline = deadline;
+        goalAmount = targetContribution;
+        completedTime = completeAt;
+        currentAmount = raisedAmount;
+        title = projectTitle;
+        desc = projectDes;
+        currentState = state;
+        balance = address(this).balance;
+    }
 }
