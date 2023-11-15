@@ -1,5 +1,9 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
-import Image from "next/image";
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { connectWithWallet } from '../helper/helper';
+import { loadAccount } from '../redux/interactions';
+
 
 export default function Home() {
   return (
