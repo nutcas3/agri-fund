@@ -8,7 +8,7 @@ async function main() {
 
   await agrifunding.deployed();
 
-  console.log("Agrifunding deployed to:", agrifunding.address);
+  console.log("Agrifunding contracts deployed to:", agrifunding.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
