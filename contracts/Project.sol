@@ -1,0 +1,61 @@
+pragma solidity >=0.8.2 <0.9.0;
+
+
+import "hardhat/console.sol";
+
+//@ Anyone can contribute
+
+//@  End project if targeted contribution amount reached
+
+//@  Expire project if raised amount not fullfill between deadline
+//    & return donated amount to all contributor .
+
+//@  Owner need to request contributers for withdraw amount.
+
+//@  Owner can withdraw amount if 50% contributors agree this is to enhance cmmunism
+
+
+contract Project{
+    enum State{
+        Fundraising,
+        Expired,
+        Successful
+    }
+//@my struct
+    struct withdrawRequest{
+        string description;
+        uint256 amount;
+        uint256 noOfVotes;
+        mapping(address => bool) voters;
+        bool isCompleted;
+        address payable reciptent;
+    }
+    //@variables
+        address payable public creator;
+    uint256 public minimumContribution;
+    uint256 public deadline;
+    uint256 public targetContribution; // required to reach at least this much amount
+    uint public completeAt;
+    uint256 public raisedAmount; // Total raised amount till this time
+    uint256 public noOfContributers;
+    string public projectTitle;
+    string public projectDes;
+    State public state = State.Fundraising; 
+
+    mapping (address => uint) public contributiors;
+    mapping (uint256 => WithdrawRequest) public withdrawRequests;
+
+    uint256 public numOfWithdrawRequests = 0;
+
+    // Modifiers
+    modifier isCreator(){
+        require(msg.sender == creator,'You dont have access to perform this operation !');
+        _;
+    }
+
+    modifier validateExpiry(State _state){
+        require(state == _state,'Invalid state');
+        require(block.timestamp < deadline,'Deadline has passed !');
+        _;
+    }
+}
