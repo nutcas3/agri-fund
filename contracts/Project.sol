@@ -30,24 +30,24 @@ contract Project{
         bool isCompleted;
         address payable reciptent;
     }
-    //@variables
+        //@variables
         address payable public creator;
-    uint256 public minimumContribution;
-    uint256 public deadline;
-    uint256 public targetContribution; // required to reach at least this much amount
-    uint public completeAt;
-    uint256 public raisedAmount; // Total raised amount till this time
-    uint256 public noOfContributers;
-    string public projectTitle;
-    string public projectDes;
-    State public state = State.Fundraising; 
+        uint256 public minimumContribution;
+        uint256 public deadline;
+        uint256 public targetContribution; // required to reach at least this much amount
+        uint public completeAt;
+        uint256 public raisedAmount; // Total raised amount till this time
+        uint256 public noOfContributers;
+        string public projectTitle;
+        string public projectDes;
+        State public state = State.Fundraising; 
 
     mapping (address => uint) public contributiors;
     mapping (uint256 => WithdrawRequest) public withdrawRequests;
 
     uint256 public numOfWithdrawRequests = 0;
 
-    // Modifiers
+    //@ Modifiers
     modifier isCreator(){
         require(msg.sender == creator,'You dont have access to perform this operation !');
         _;
@@ -58,4 +58,17 @@ contract Project{
         require(block.timestamp < deadline,'Deadline has passed !');
         _;
     }
+    //@for funding received
+    event FundingReceived(address contributor, uint amount, uint currentTotal);
+    //@for contributors vote to withdraw request
+    event AmountWithdrawSuccessful(
+        uint256 requestId,
+        string description,
+        uint256 amount,
+        uint256 noOfVotes,
+        bool isCompleted,
+        address reciptent
+    );
+    //@@@@@@@@ create a project
+    ///@@ if not return null
 }
