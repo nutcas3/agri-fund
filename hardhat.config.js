@@ -4,7 +4,7 @@ require("hardhat-deploy");
 require("@nomiclabs/hardhat-ethers");
 
 module.exports = {
-  solidity: "0.8.2",
+  solidity: "0.8.4",
   defaultNetwork: "telos_testnet",
   namedAccounts: {
     deployer: 0,

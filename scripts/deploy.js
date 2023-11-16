@@ -1,14 +1,14 @@
-import { ethers } from "hardhat";
+const hre = require("hardhat");
 
 async function main() {
 
   // We get the contract to deploy
-  const Agrifunding = await ethers.getContractFactory("Agrifunding");
+  const Agrifunding = await hre.ethers.getContractFactory("Agrifunding");
   const agrifunding = await Agrifunding.deploy();
 
-  await agrifunding.deployed();
+  await agrifunding.waitForDeployment();
 
-  console.log("Agrifunding contracts deployed to:", agrifunding.address);
+  console.log("AgriFunding deployed to:", agrifunding.getAddress);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
@@ -19,5 +19,3 @@ main()
     console.error(error);
     process.exit(1);
   });
-
-

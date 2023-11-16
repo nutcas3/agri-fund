@@ -62,8 +62,8 @@ describe("Agrifunding", () => {
         const projectDesc='Testing description';
   
         await agrifundingContract.connect(address1).createProject(minimumContribution,deadline,targetContribution,projectTitle,projectDesc)
-        const projectList = await crowdfundingContract.returnAllProjects();
-        const contribute = await crowdfundingContract.connect(address1).contribute(projectList[0],{value: etherToWei("4")});
+        const projectList = await AgriFundingContract.returnAllProjects();
+        const contribute = await AgriFundingContract.connect(address1).contribute(projectList[0],{value: etherToWei("4")});
         
         const event = await contribute.wait();
         // Test ContributionReceived event

@@ -1,14 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.8.2 <0.9.0;
+pragma solidity ^0.8.2;
 
 import "hardhat/console.sol";
 import './Project.sol';
 
-//**@
-* agrifunding contract
-**//
 
-contract AgriFunding(
+contract AgriFunding{
     event ProjectStarted(
     address projectContractAddress ,
     address creator,
@@ -24,14 +21,10 @@ contract AgriFunding(
 event ContributionReceived(
     address projectAddress,
     uint256 contributedAmount,
-    address indexed contributor,
+    address indexed contributor
 );
 Project[] private projects;
 
-
-//**@
-* start a Fundraising
-**//
 function createProject(
     uint256 minimumContribution,
     uint256 deadline,
@@ -75,6 +68,6 @@ function contribute(address _projectAddress) public payable{
    emit ContributionReceived(_projectAddress,msg.value,msg.sender);
 }
 
-)
+}
 
 
